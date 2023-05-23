@@ -17,3 +17,13 @@
 
 > This is a blockquote.
 
+
+
+
+# Command List!
+
+**File System Controls**
+- pd: traverse to parent directory
+- cd 'name': traverse to 'name' child directory
+- dirs: list of child directories 
+
