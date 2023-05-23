@@ -3,13 +3,19 @@ package CommandLineInterpreter;
 import java.lang.reflect.Constructor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import java.util.Scanner;
 
 public class cmd {
     public static void main (String[] args) {
 
-        Window window = new Window();
+        // Window example
+        // Window window = new Window();
+        // window.createWindow();
 
-        window.createWindow();
+        // Commands cmd = new Commands();
+        // String name = cmd.getInput("What is your name?");
+        // System.out.println("Hello " + name);
+
 
     }
 
@@ -33,14 +39,29 @@ public class cmd {
             // Defines the 'x' close event on the window
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
-
-
-
     }
 
 
     static class Commands {
 
+        
+        // Prompts the user for a command and returns the input as a string
+        public String getInput (String command) {
+            // Instantiate scanner
+            Scanner scanner = new Scanner(System.in);
+
+            // Print the command
+            System.out.println(command);
+
+            // Get input from next string
+            String input = scanner.nextLine();
+
+            // Close scanner
+            scanner.close();
+
+            // Return user input
+            return input;
+        }
 
 
     }
