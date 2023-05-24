@@ -149,11 +149,7 @@ public class cmd {
             }
 
         }
-
-        // Print the current path of the path
-        public void currentPath () {
-            System.out.println(currentPath);
-        }
+        
 
         // Switches the main path drive
         public void switchDrive (char drive) {
@@ -236,7 +232,7 @@ public class cmd {
 
             // currentPath command: cur 
             else if (command[0].equals("cur")) {
-                file.currentPath();
+                System.out.println(file.currentPath);
             }
 
             // listDirectories command: dirs
