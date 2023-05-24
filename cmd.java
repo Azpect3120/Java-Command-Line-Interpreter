@@ -246,11 +246,16 @@ public class cmd {
 
             // File exists
             if (target.exists()) {
-                // If target has child directories
+                // List of targets child directories
                 File[] dirs = new File(currentPath + path).listFiles(); 
 
-                // Remove child directories
-                for(File dir : dirs) {dir.delete();}
+                // If target has any child directories
+                if (dirs != null) {
+                    // Remove child directories
+                    for(File dir : dirs) {
+                        dir.delete();
+                    }
+                }
 
                 // Delete the target
                 target.delete();
