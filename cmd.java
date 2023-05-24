@@ -131,17 +131,23 @@ public class cmd {
 
         // Print the list of directories
         public void listDirectories () {
-            // List of each child directory
-            File[] dirs = new File(currentPath).listFiles(); 
-            // No child directories found  
-            if(dirs.length == 0) {
-                System.out.println("ERROR: No child directories found");
-            } else {
-                // Print each child
-                for(File f : dirs) {
-                    System.out.println(f);
+            try {
+                // List of each child directory
+                File[] dirs = new File(currentPath).listFiles(); 
+
+                // No child directories found  
+                if(dirs.length == 0) {
+                    System.out.println("ERROR: No child directories found");
+                } else {
+                    // Print each child
+                    for(File f : dirs) {
+                        System.out.println(f);
+                    }
                 }
+            } catch (java.lang.NullPointerException e) {
+                System.err.println("ERROR: No child directories found");
             }
+
         }
 
         // Print the current path of the path
