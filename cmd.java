@@ -164,13 +164,8 @@ public class cmd {
                         date = date.split("-")[1] + "/" + date.split("-")[2] + "/" + date.split("-")[0];
                         time = time.split(":")[0] + ":" + time.split(":")[1];
 
-
-                        // Final Output
-                        String output = "<dir> " + date + " " + time + " " + split[split.length-1]; 
-                        if (f.length() > 0) output += " (" + f.length() + "b)";
-
-                        // Print final output
-                        System.out.println(output);
+                        // Print final formatted output
+                        System.out.printf("%-6s %-10s %-10s %-50s%n", "<dir>", date, time, split[split.length-1]);
                     }
                 }
             } catch (java.lang.NullPointerException e) {
