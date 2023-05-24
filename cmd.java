@@ -7,6 +7,9 @@ import java.util.Scanner;
 import java.time.*;
 import java.io.*;
 import java.awt.Desktop;
+import java.util.List;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 
 public class cmd {
@@ -324,6 +327,81 @@ public class cmd {
 
     // File editor commands
     static class FileEditorCommands {
+        // Instantiate new scanner
+        Scanner editorInput = new Scanner(System.in);
+        String openedPath = "";
+
+        // Opens the file editor on the current file
+        public void openEditor (String path) {
+            // Set path in editor
+            openedPath = path.toString();
+
+            // Loop until user inputs exit command
+            while (true) {
+                // Prompt
+                System.out.print("<file editor> ");
+                
+                // Gets input from the user
+                String[] command = editorInput.nextLine().split(" ");
+
+                // exit editor: close
+                if (command[0].equals("close")) break;
+
+                // preview command: preview
+                else if (command[0].equals("preview")) {
+                    preview();
+                }
+
+                // append command: append {text}
+                else if (command[0].equals("append")) {
+
+                }
+
+                // prepend command: prepend {text}
+                else if (command[0].equals("prepend")) {
+
+                }
+
+
+                // Unknown command
+                else {
+                    System.out.println("<ERROR> Unknown command");
+                }
+            }
+        }
+
+
+        // create a new line at the bottom of the file
+        public void append () {
+
+        }
+
+
+        // create a new line at the top of the file
+        public void prepend () {
+
+        }
+
+
+        // display the contents of the file
+        public void preview () {
+            try {
+                // Get list of each line in the file
+                List<String> lines = Files.readAllLines(Paths.get(openedPath));
+
+                // Print each line
+                for (String line : lines) {
+                    System.out.println(line);
+                }
+
+            // idk what this error is
+            } catch (IOException e) {
+                System.out.println("<ERROR> " + e);
+            }
+
+            
+        }
+
 
     }
 
@@ -359,6 +437,7 @@ public class cmd {
     static class Interpreter {
         // External class objects
         FileSystemCommands fileSys = new FileSystemCommands();
+        FileEditorCommands editor = new FileEditorCommands();
         SystemCommands sys =  new SystemCommands();
         InputHandler inputHandler = new InputHandler();
         
@@ -474,6 +553,12 @@ public class cmd {
                 fileSys.openPath();
             }
 
+
+            // openEditor command: editor
+            else if (command[0].equals("editor")) {
+                editor.openEditor(fileSys.currentPath);
+            }
+            
 
 
             // getHelp command: help

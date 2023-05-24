@@ -14,6 +14,11 @@
 
 
 ## **File Editor Commands**
+- editor: *opens the file editor on the current file*
+- close: *close the file and exit out of the editor*
+- preview: *display the contents of the file*
+- append {text}: *create a new line at the bottom of the file*
+- prepend {text}: *create a new line at the top of the file*
 
 ## **Other System Commands**
 - help: *display helpful information*
