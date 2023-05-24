@@ -1,4 +1,4 @@
-package CommandLineInterpreter;
+// package CommandLineInterpreter;
 
 import java.lang.reflect.Constructor;
 import javax.swing.JButton;
@@ -25,7 +25,7 @@ public class cmd {
 
             // Loop exit handling
             if (command.trim().equals("exit")) {
-                // input.closeScanner();
+                input.closeScanner();
                 break;
             } else {
                 interpreter.interpretCommand(command);
@@ -73,12 +73,13 @@ public class cmd {
             // Return user input
             return scanner.nextLine().trim();
         }
+        // Close the scanner to prevent resource link
+        public void closeScanner () {
+            scanner.close();
+        }
     }
 
-    // Close the scanner to prevent resource link
-    public void closeScanner () {
-        scanner.close();
-    }
+
 
     // File system commands
     static class FileSystemCommands {
@@ -122,10 +123,20 @@ public class cmd {
 
     }
 
+    // Other system commands
+    static class SystemCommands {
+        // Displays help message to the user
+        public void getHelp () {
+            String helpMessage = "File System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index ";
+            System.out.println(helpMessage);
+        }
+    }
+
     // Interpreter class to interpret the commands inputted by the user 
     static class Interpreter {
         // External class objects
         FileSystemCommands file = new FileSystemCommands();
+        SystemCommands sys =  new SystemCommands();
         InputHandler inputHandler = new InputHandler();
         
         // Handle user command input
@@ -152,6 +163,10 @@ public class cmd {
             // currentPath command: cur
             else if (command[0].equals("cur")) {
                 file.currentPath();
+            }
+
+            else if (command[0].equals("help")) {
+                sys.getHelp();
             }
 
 
