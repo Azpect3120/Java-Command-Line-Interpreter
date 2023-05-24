@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 
 public class cmd {
         public static void main (String[] args) {
@@ -144,7 +148,29 @@ public class cmd {
                     for(File f : dirs) {
                         // Split child and print last piece of the path
                         String[] split = f.toString().split("\\\\");
-                        System.out.println("<dir> " + split[split.length-1]);
+                        
+                        // Last edit on the file: epoch time
+                        long epochTime = f.lastModified();
+
+                        // Convert epochTime to readable data
+                        Instant instant = Instant.ofEpochMilli(epochTime);
+                        LocalDateTime timestamp = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+
+                        // Convert time variable to date & time string 
+                        String date = timestamp.toString().split("T")[0];
+                        String time = timestamp.toString().split("T")[1];
+
+                        // Reformat date & time strings
+                        date = date.split("-")[1] + "/" + date.split("-")[2] + "/" + date.split("-")[0];
+                        time = time.split(":")[0] + ":" + time.split(":")[1];
+
+
+                        // Final Output
+                        String output = "<dir> " + date + " " + time + " " + split[split.length-1]; 
+                        if (f.length() > 0) output += " (" + f.length() + "b)";
+
+                        // Print final output
+                        System.out.println(output);
                     }
                 }
             } catch (java.lang.NullPointerException e) {
@@ -303,6 +329,7 @@ public class cmd {
         // Operating system
         final String os = System.getProperty("os.name");
 
+
         // Displays help message to the user
         public void getHelp () {
             // Help message
@@ -310,6 +337,7 @@ public class cmd {
             // Print message
             System.out.println(helpMessage);
         }
+
 
         // Clears the log
         public void clearTerminal () {
