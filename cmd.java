@@ -175,7 +175,9 @@ public class cmd {
 
         // Displays help message to the user
         public void getHelp () {
-            String helpMessage = "File System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nclear: clears the log";
+            // Help message
+            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
+            // Print message
             System.out.println(helpMessage);
         }
 
@@ -267,6 +269,4 @@ public class cmd {
             }
         }
     }
-
-    
 }
