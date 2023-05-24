@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.util.Scanner;
+import java.io.File;
 
 public class cmd {
         public static void main (String[] args) {
@@ -87,6 +88,7 @@ public class cmd {
             // No parent directory was found
             if (currentPath.split(":\\\\").length == 1) {
                 System.out.println("ERROR: No parent directory found");
+
             // Parent directory is found
             } else {
                 // Split path into strings
@@ -96,21 +98,50 @@ public class cmd {
                 currentPath = "";
 
                 // Reform string
-                for(int i = 0; i < split.length - 1; i++) {
-                        currentPath += split[i] + "\\";
-                }
+                for(int i = 0; i < split.length - 1; i++) {currentPath += split[i] + "\\";}
+
+                // Print new path
+                System.out.println("New path: " + currentPath);
             }
         }
 
         // Traverse forward to the inputted child directory
         public void traverseToChild(String child) {
-            // Update path
-            currentPath = currentPath + child + "\\";
+            // Holds the new path
+            String newPath = currentPath + child + "\\";
+
+            // List of child directories
+            File[] dirs = new File(currentPath).listFiles(); 
+
+            // Ensures the child directory is found             
+            for (File dir : dirs) {
+                // Directory was found
+                // System.out.println(dir.toString());
+                // System.out.println(newPath);
+                String fDir = dir.toString() + "\\";
+                if (fDir.equals(newPath)) {
+                    currentPath = newPath;
+                    System.err.println("New path: " + currentPath);
+                    return;
+                }
+            }
+            // Unknown child error
+            System.out.println("ERROR: Child directory was not found");
         }
 
         // Print the list of directories
         public void listDirectories () {
-
+            // List of each child directory
+            File[] dirs = new File(currentPath).listFiles(); 
+            // No child directories found  
+            if(dirs.length == 0) {
+                System.out.println("ERROR: No child directories found");
+            } else {
+                // Print each child
+                for(File f : dirs) {
+                    System.out.println(f);
+                }
+            }
         }
 
         // Print the current path of the path
@@ -120,7 +151,18 @@ public class cmd {
 
         // Switches the main path drive
         public void switchDrive (char drive) {
-            currentPath = drive + ":\\";
+            // Switch drive
+            String newPath = drive + ":\\";
+
+            // Ensure the drive exists
+            if (new File(newPath).exists()) {
+                // Update path
+                currentPath = newPath;
+                // Print new path
+                System.out.println("New path: " + currentPath);
+            } else {
+                System.out.println("ERROR: Drive does not exist");
+            }
         }
 
     }
@@ -128,10 +170,25 @@ public class cmd {
 
     // Other system commands
     static class SystemCommands {
+        // Operating system
+        final String os = System.getProperty("os.name");
+
         // Displays help message to the user
         public void getHelp () {
-            String helpMessage = "File System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive";
+            String helpMessage = "File System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nclear: clears the log";
             System.out.println(helpMessage);
+        }
+
+        // Clears the log
+        public void clearTerminal () {
+            try {
+                // Windows funtion
+                if (os.contains("Windows")) new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                
+            // Error handling
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -156,7 +213,12 @@ public class cmd {
             else if (command[0].equals("cd")) {
                 // Contains name
                 try {
-                    file.traverseToChild(command[1]);
+                    // Append all args to string to allow spaces in file name
+                    String fileName = command[1];
+                    for(int i = 2; i < command.length; i++) {
+                        fileName += " " + command[i];
+                    }
+                    file.traverseToChild(fileName);
 
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
@@ -167,6 +229,11 @@ public class cmd {
             // currentPath command: cur 
             else if (command[0].equals("cur")) {
                 file.currentPath();
+            }
+
+            // listDirectories command: dirs
+            else if (command[0].equals("dirs")) {
+                file.listDirectories();
             }
 
             // switchDrive command: sd {driveLetter}
@@ -186,6 +253,11 @@ public class cmd {
             // getHelp command: help
             else if (command[0].equals("help")) {
                 sys.getHelp();
+            }
+
+            // clearTerminal command: clear
+            else if (command[0].equals("clear")) {
+                sys.clearTerminal();
             }
 
 

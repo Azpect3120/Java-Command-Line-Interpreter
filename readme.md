@@ -29,3 +29,7 @@
 - cur: print the current index 
 - sd {letter}: switch drive to {letter} drive
 
+**Other System Controls**
+- help: display helpful information
+- clear: clears the log
+
