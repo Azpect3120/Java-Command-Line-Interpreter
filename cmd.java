@@ -306,7 +306,7 @@ public class cmd {
         // Displays help message to the user
         public void getHelp () {
             // Help message
-            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\ndelpath {dirName/fileName}: deletes the dir/file at the given path\nrename {newDirName/newFileName}: renames the current directory or file\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
+            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\ndelpath {dirName/fileName}: deletes the dir/file at the given path\nrename {newDirName/newFileName}: renames the current directory or file (include file extension in the file name)\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
             // Print message
             System.out.println(helpMessage);
         }
