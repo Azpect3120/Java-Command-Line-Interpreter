@@ -139,7 +139,9 @@ public class cmd {
                 } else {
                     // Print each child
                     for(File f : dirs) {
-                        System.out.println(f);
+                        // Split child and print last piece of the path
+                        String[] split = f.toString().split("\\\\");
+                        System.out.println("<dir> " + split[split.length-1]);
                     }
                 }
             } catch (java.lang.NullPointerException e) {
@@ -238,7 +240,7 @@ public class cmd {
 
             // currentPath command: cur 
             else if (command[0].equals("cur")) {
-                System.out.println(file.currentPath);
+                System.out.println("<path> " + file.currentPath);
             }
 
             // listDirectories command: dirs
