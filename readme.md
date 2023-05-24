@@ -26,4 +26,5 @@
 - pd: traverse to parent directory
 - cd 'name': traverse to 'name' child directory
 - dirs: list of child directories 
+- cur: print the current index 
 
