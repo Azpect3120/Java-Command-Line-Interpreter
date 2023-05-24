@@ -5,6 +5,7 @@
 import javax.swing.JFrame;
 import java.util.Scanner;
 import java.io.File;
+import java.io.IOException;
 
 public class cmd {
         public static void main (String[] args) {
@@ -190,6 +191,33 @@ public class cmd {
             System.out.println("New directory '" + newDir + "' was created");
         }
 
+        // Create a new file at the current path (file name and extension cannot include spaces)
+        public void createFile (String name, String ext) {
+            // Create new file path
+            File newFile = new File(currentPath + name + "." + ext);
+
+            // File already exists 
+            if (newFile.exists()) {
+                // Define the count
+                int count = 1;
+                // Until a file name with the count is NOT found
+                while(newFile.exists()) {
+                    // Add count to the file name
+                    newFile = new File(currentPath + name + "(" + count + ")." + ext);
+                    count++;
+                }
+                // Create the new file
+                try{newFile.createNewFile();} 
+                catch (IOException e) {System.out.println(e);}
+                
+            // File does not exist
+            } else {
+                // Create the new file
+                try{newFile.createNewFile();} 
+                catch (IOException e) {System.out.println(e);}
+            }
+        }
+
     }
 
 
@@ -201,7 +229,7 @@ public class cmd {
         // Displays help message to the user
         public void getHelp () {
             // Help message
-            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
+            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
             // Print message
             System.out.println(helpMessage);
         }
@@ -277,7 +305,7 @@ public class cmd {
                 }
             }
 
-            // createDirectory command: newdir
+            // createDirectory command: newdir {name}
             else if (command[0].equals("newdir")) {
                 // Contains name
                 try {
@@ -288,9 +316,23 @@ public class cmd {
                     }
                     file.createDirectory(dirName);
 
-                // Index out of range error
+                // Index out of range error (name is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
                     System.out.println("ERROR: Undefined directory name");
+                }
+            }
+
+            // createFile command: newfile {name} {extension}
+            else if (command[0].equals("newfile")) {
+                // Contains name and extension
+                try {
+                    String fileName = command[1];
+                    String fileExt = command[2];
+                    file.createFile(fileName, fileExt);
+
+                // Index out of range error (name or extension is not provided)
+                } catch (java.lang.ArrayIndexOutOfBoundsException error) {
+                    System.out.println("ERROR: Undefined file name or extension");
                 }
             }
 

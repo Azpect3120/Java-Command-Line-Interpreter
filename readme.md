@@ -29,6 +29,7 @@
 - cur: print the current index 
 - sd {letter}: switch drive to {letter} drive
 - newdir {name}: creates a new child directory at the current path
+- newfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)
 
 **Other System Controls**
 - help: display helpful information
