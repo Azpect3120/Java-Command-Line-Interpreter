@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import java.util.Scanner;
 
 public class cmd {
-    public static void main (String[] args) {
+        public static void main (String[] args) {
 
         // Window example
         // Window window = new Window();
@@ -67,10 +67,7 @@ public class cmd {
         // Prompts the user for a command and returns the input as a string
         // Does not close scanner
         public String getInput () {
-            // Print the command
             System.out.print("<Enter command> ");
-
-            // Return user input
             return scanner.nextLine().trim();
         }
         // Close the scanner to prevent resource link
@@ -88,7 +85,7 @@ public class cmd {
         // Traverse backward to the parent directory
         public void traverseToParent () {
             // No parent directory was found
-            if (currentPath.equals("C:\\")) {
+            if (currentPath.split(":\\\\").length == 1) {
                 System.out.println("ERROR: No parent directory found");
             // Parent directory is found
             } else {
@@ -121,13 +118,19 @@ public class cmd {
             System.out.println(currentPath);
         }
 
+        // Switches the main path drive
+        public void switchDrive (char drive) {
+            currentPath = drive + ":\\";
+        }
+
     }
+
 
     // Other system commands
     static class SystemCommands {
         // Displays help message to the user
         public void getHelp () {
-            String helpMessage = "File System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index ";
+            String helpMessage = "File System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive";
             System.out.println(helpMessage);
         }
     }
@@ -149,22 +152,38 @@ public class cmd {
                 file.traverseToParent();
             }
 
-            // traverseToChild command: cd 'childName' 
+            // traverseToChild command: cd {childName} 
             else if (command[0].equals("cd")) {
                 // Contains name
                 try {
                     file.traverseToChild(command[1]);
+
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
                     System.out.println("ERROR: Undefined child directory");
                 }
             }
 
-            // currentPath command: cur
+            // currentPath command: cur 
             else if (command[0].equals("cur")) {
                 file.currentPath();
             }
 
+            // switchDrive command: sd {driveLetter}
+            else if (command[0].equals("sd")) {
+                // Contains drive letter
+                try {
+                    // Convert second arg to capital char[]
+                    char[] chars = command[1].toUpperCase().toCharArray();
+                    file.switchDrive(chars[0]);
+
+                // Index out of range error
+                } catch (java.lang.ArrayIndexOutOfBoundsException error) {
+                    System.out.println("ERROR: Undefined drive indicator");
+                }
+            }
+
+            // getHelp command: help
             else if (command[0].equals("help")) {
                 sys.getHelp();
             }
