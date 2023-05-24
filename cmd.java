@@ -169,8 +169,23 @@ public class cmd {
         public void createDirectory (String name) {
             // Path of the new directory
             File newDir = new File(currentPath + name);
-            // Create the directory
-            newDir.mkdir();
+
+            // File already exists
+            if (newDir.exists()) {
+                // Define the count
+                int count = 1;
+                // Until a directory name with the count is NOT found
+                while(newDir.exists()) {
+                    // Add count to directory name
+                    newDir = new File(currentPath + name + "(" + count + ")");
+                    count++;
+                }
+                // Create the new directory
+                newDir.mkdir();
+            } else {
+                // Create the directory
+                newDir.mkdir();
+            }
             // Print success message
             System.out.println("New directory '" + newDir + "' was created");
         }
