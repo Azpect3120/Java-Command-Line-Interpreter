@@ -19,7 +19,7 @@ public class cmd {
         // Until the exit keyword is typed
         while(true) {
             // Get input from user
-            String command = input.getInput();
+            String command = input.getInput("<command> ");
 
             // Loop exit handling
             if (command.trim().equals("exit")) {
@@ -58,16 +58,17 @@ public class cmd {
 
     // Handles the input from the user
     static class InputHandler {
-        // Instantiate objects
+        // Instantiate scanner object
         Scanner scanner = new Scanner(System.in);
-        // FileSystemCommands file = new FileSystemCommands();
+
 
         // Prompts the user for a command and returns the input as a string
-        // Does not close scanner
-        public String getInput () {
-            System.out.print("<command> ");
+        public String getInput (String prompt) {
+            System.out.print(prompt);
             return scanner.nextLine().trim();
         }
+        
+        
         // Close the scanner to prevent resource link
         public void closeScanner () {
             scanner.close();
@@ -358,7 +359,7 @@ public class cmd {
         
         // Handle user command input
         public void interpretCommand (String input) {
-            // Split input into individual words
+            // Split input into individual arguments
             String[] command = input.split(" ");
 
             // traverseToParent command: pd
