@@ -166,6 +166,7 @@ public class cmd {
             }
         }
 
+
         // Creates a new child directory at the current path
         public void createDirectory (String name) {
             // Path of the new directory
@@ -190,6 +191,7 @@ public class cmd {
             // Print success message
             System.out.println("New directory '" + newDir + "' was created");
         }
+
 
         // Create a new file at the current path (file name and extension cannot include spaces)
         public void createFile (String name, String ext) {
@@ -216,7 +218,10 @@ public class cmd {
                 try{newFile.createNewFile();} 
                 catch (IOException e) {System.out.println(e);}
             }
+            // Print success message
+            System.out.println("New file '" + newFile + "' was created");
         }
+
 
         // Deletes the dir/file at the given path
         public void deletePath (String path) {
@@ -225,6 +230,12 @@ public class cmd {
 
             // File exists
             if (target.exists()) {
+                // If target has child directories
+                File[] dirs = new File(currentPath + path).listFiles(); 
+
+                // Remove child directories
+                for(File dir : dirs) {dir.delete();}
+
                 // Delete the target
                 target.delete();
                 System.out.println("Path '" + target + "' was deleted");
