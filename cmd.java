@@ -266,7 +266,7 @@ public class cmd {
 
                 // Delete the target
                 target.delete();
-                System.out.println("<Path Deleted> " + target);
+                System.out.println("<path deleted> " + target);
             } else {
                 System.out.println("<ERROR> Path does not exist");
             }
