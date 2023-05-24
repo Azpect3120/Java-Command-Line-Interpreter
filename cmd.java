@@ -1,7 +1,7 @@
 // package CommandLineInterpreter;
 
-import java.lang.reflect.Constructor;
-import javax.swing.JButton;
+// import java.lang.reflect.Constructor;
+// import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.util.Scanner;
 import java.io.File;
@@ -63,7 +63,7 @@ public class cmd {
     static class InputHandler {
         // Instantiate objects
         Scanner scanner = new Scanner(System.in);
-        FileSystemCommands file = new FileSystemCommands();
+        // FileSystemCommands file = new FileSystemCommands();
 
         // Prompts the user for a command and returns the input as a string
         // Does not close scanner
@@ -81,6 +81,7 @@ public class cmd {
 
     // File system commands
     static class FileSystemCommands {
+        // Current selected path
         String currentPath = "C:\\";
 
         // Traverse backward to the parent directory
@@ -99,9 +100,6 @@ public class cmd {
 
                 // Reform string
                 for(int i = 0; i < split.length - 1; i++) {currentPath += split[i] + "\\";}
-
-                // Print new path
-                System.out.println("New path: " + currentPath);
             }
         }
 
@@ -121,13 +119,13 @@ public class cmd {
                 String fDir = dir.toString() + "\\";
                 if (fDir.equals(newPath)) {
                     currentPath = newPath;
-                    System.err.println("New path: " + currentPath);
                     return;
                 }
             }
             // Unknown child error
             System.out.println("ERROR: Child directory was not found");
         }
+
 
         // Print the list of directories
         public void listDirectories () {
@@ -149,7 +147,7 @@ public class cmd {
             }
 
         }
-        
+
 
         // Switches the main path drive
         public void switchDrive (char drive) {
@@ -160,11 +158,19 @@ public class cmd {
             if (new File(newPath).exists()) {
                 // Update path
                 currentPath = newPath;
-                // Print new path
-                System.out.println("New path: " + currentPath);
             } else {
                 System.out.println("ERROR: Drive does not exist");
             }
+        }
+
+        // Creates a new child directory at the current path
+        public void createDirectory (String name) {
+            // Path of the new directory
+            File newDir = new File(currentPath + name);
+            // Create the directory
+            newDir.mkdir();
+            // Print success message
+            System.out.println("New directory '" + newDir + "' was created");
         }
 
     }
@@ -178,7 +184,7 @@ public class cmd {
         // Displays help message to the user
         public void getHelp () {
             // Help message
-            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
+            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
             // Print message
             System.out.println(helpMessage);
         }
@@ -186,7 +192,7 @@ public class cmd {
         // Clears the log
         public void clearTerminal () {
             try {
-                // Windows funtion
+                // Windows clear function
                 if (os.contains("Windows")) new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                 
             // Error handling
@@ -251,6 +257,23 @@ public class cmd {
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
                     System.out.println("ERROR: Undefined drive indicator");
+                }
+            }
+
+            // createDirectory command: newdir
+            else if (command[0].equals("newdir")) {
+                // Contains name
+                try {
+                    // Append all args to string to allow spaces in file name
+                    String dirName = command[1];
+                    for(int i = 2; i < command.length; i++) {
+                        dirName += " " + command[i];
+                    }
+                    file.createDirectory(dirName);
+
+                // Index out of range error
+                } catch (java.lang.ArrayIndexOutOfBoundsException error) {
+                    System.out.println("ERROR: Undefined directory name");
                 }
             }
 
