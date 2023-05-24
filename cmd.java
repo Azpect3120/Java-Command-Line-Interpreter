@@ -85,6 +85,7 @@ public class cmd {
         // Current selected path
         String currentPath = "C:\\";
 
+
         // Traverse backward to the parent directory
         public void traverseToParent () {
             // No parent directory was found
@@ -103,6 +104,7 @@ public class cmd {
                 for(int i = 0; i < split.length - 1; i++) {currentPath += split[i] + "\\";}
             }
         }
+
 
         // Traverse forward to the inputted child directory
         public void traverseToChild(String child) {
@@ -242,7 +244,52 @@ public class cmd {
             } else {
                 System.out.println("<ERROR> Path does not exist");
             }
+        }
 
+
+        // Renames the current directory or file
+        public void renamePath (String newName) {
+            // Path of the target directory
+            File target = new File(currentPath);
+
+            // Path is a disk directory
+            if ((currentPath.split("\\\\").length == 1)) {
+                System.out.println("<ERROR> Cannot rename disks");
+            // Path is not a disk directory
+            } else {
+                // Target path does exist
+                if (target.exists()) {
+                    // Split path into strings
+                    String[] split = currentPath.split("\\\\");
+            
+                    // Create new path string
+                    String newPath = "";
+
+                    // Add all parent directories to path 
+                    for(int i = 0; i < split.length - 1; i++) {
+                        newPath += split[i] + "\\";
+                    }
+                    // Add new path name
+                    newPath += newName;
+
+                    // Path name already exists
+                    if (new File(newPath).exists()) {
+                        System.out.println("<ERROR> Path name already exists");
+                        
+                    // Path name does not exist
+                    } else {
+                          // Rename the target
+                        target.renameTo(new File(newPath));
+
+                        // Update path 
+                        currentPath = newPath;
+                    }
+                // Selected directory is unknown
+                } else {
+                    System.out.println("<ERROR> Unknown directory selected");
+                }
+
+            }
         }
 
     }
@@ -259,7 +306,7 @@ public class cmd {
         // Displays help message to the user
         public void getHelp () {
             // Help message
-            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\ndelpath {dirName/fileName}: deletes the dir/file at the given path\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
+            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\ndelpath {dirName/fileName}: deletes the dir/file at the given path\nrename {newDirName/newFileName}: renames the current directory or file\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
             // Print message
             System.out.println(helpMessage);
         }
@@ -385,6 +432,14 @@ public class cmd {
                     System.out.println("<ERROR> Undefined file name or path");
                 }
             }
+
+            // renamePath command: rename {newName}
+            else if (command[0].equals("rename")) {
+
+                fileSys.renamePath(command[1]);
+            }
+
+
 
             // getHelp command: help
             else if (command[0].equals("help")) {

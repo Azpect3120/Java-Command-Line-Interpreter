@@ -9,6 +9,7 @@
 - newdir {name}: *creates a new child directory at the current path*
 - newfile {name} {fileExtension}: *create a new file at the current path (file name and extension cannot include spaces)*
 - delpath {dirName/fileName}: *deletes the dir/file at the given path*
+- rename {newDirName/newFileName}: *renames the current directory or file*
 
 
 ## **File Editor Commands**
