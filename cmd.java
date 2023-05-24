@@ -4,27 +4,19 @@
 // import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.io.*;
+import java.awt.Desktop;
 
 
 public class cmd {
         public static void main (String[] args) {
 
-        // Window example
-        // Window window = new Window();
-        // window.createWindow();
-
-        // Commands cmd = new Commands();
-        // String name = cmd.getInput("What is your name?");
-        // System.out.println("Hello " + name);
-
+        // Instantiate classes
         InputHandler input = new InputHandler();
         Interpreter interpreter = new Interpreter();
 
+        // Until the exit keyword is typed
         while(true) {
             // Get input from user
             String command = input.getInput();
@@ -313,12 +305,22 @@ public class cmd {
             }
         }
 
+
+        // Opens the current directory or file in the desktops default application 
+        public void openPath () {
+            // Open the path using the desktops default application
+            try {Desktop.getDesktop().open(new File(currentPath));
+        
+            // Could not open file error
+            } catch (IOException e) {System.out.println("<ERROR> Could not open directory or file");}
+        }
     }
 
     // File editor commands
     static class FileEditorCommands {
 
     }
+
     // Other system commands
     static class SystemCommands {
         // Operating system
@@ -328,7 +330,7 @@ public class cmd {
         // Displays help message to the user
         public void getHelp () {
             // Help message
-            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\ndelpath {dirName/fileName}: deletes the dir/file at the given path\nrename {newDirName/newFileName}: renames the current directory or file (include file extension in the file name)\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log";
+            String helpMessage = "\nFile System Commands\n----------------------------------\npd: traverse to parent directory\ncd {name}: traverse to 'name' child directory\ndirs: list of child directories\ncur: print the current index\nsd {letter}: switch drive to {letter} drive\nnewdir {name}: creates a new child directory at the current path\nnewfile {name} {fileExtension}: create a new file at the current path (file name and extension cannot include spaces)\ndelpath {dirName/fileName}: deletes the dir/file at the given path\nrename {newDirName/newFileName}: renames the current directory or file (include file extension in the file name)\nopen: opens the current directory or file in the desktops default application\n\nOther System Controls\n----------------------------------\nhelp: displays this message\nclear: clears the log\nexit: exits out of the command line";
             // Print message
             System.out.println(helpMessage);
         }
@@ -458,8 +460,12 @@ public class cmd {
 
             // renamePath command: rename {newName}
             else if (command[0].equals("rename")) {
-
                 fileSys.renamePath(command[1]);
+            }
+
+            // openPath command: open
+            else if (command[0].equals("open")) {
+                fileSys.openPath();
             }
 
 

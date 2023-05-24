@@ -10,6 +10,7 @@
 - newfile {name} {fileExtension}: *create a new file at the current path (file name and extension cannot include spaces)*
 - delpath {dirName/fileName}: *deletes the dir/file at the given path*
 - rename {newDirName/newFileName}: *renames the current directory or file (include file extension in the file name)*
+- open: *opens the current directory or file in the desktops default application*
 
 
 ## **File Editor Commands**
@@ -17,3 +18,4 @@
 ## **Other System Commands**
 - help: *display helpful information*
 - clear: *clears the log*
+- exit: *exits out of the command line*
