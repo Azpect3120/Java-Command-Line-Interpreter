@@ -247,7 +247,10 @@ public class cmd {
 
     }
 
+    // File editor commands
+    static class FileEditorCommands {
 
+    }
     // Other system commands
     static class SystemCommands {
         // Operating system
@@ -277,7 +280,7 @@ public class cmd {
     // Interpreter class to interpret the commands inputted by the user 
     static class Interpreter {
         // External class objects
-        FileSystemCommands file = new FileSystemCommands();
+        FileSystemCommands fileSys = new FileSystemCommands();
         SystemCommands sys =  new SystemCommands();
         InputHandler inputHandler = new InputHandler();
         
@@ -288,7 +291,7 @@ public class cmd {
 
             // traverseToParent command: pd
             if (command[0].equals("pd")) {
-                file.traverseToParent();
+                fileSys.traverseToParent();
             }
 
             // traverseToChild command: cd {childName} 
@@ -300,7 +303,7 @@ public class cmd {
                     for(int i = 2; i < command.length; i++) {
                         fileName += " " + command[i];
                     }
-                    file.traverseToChild(fileName);
+                    fileSys.traverseToChild(fileName);
 
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
@@ -310,12 +313,12 @@ public class cmd {
 
             // currentPath command: cur 
             else if (command[0].equals("cur")) {
-                System.out.println("<path> " + file.currentPath);
+                System.out.println("<path> " + fileSys.currentPath);
             }
 
             // listDirectories command: dirs
             else if (command[0].equals("dirs")) {
-                file.listDirectories();
+                fileSys.listDirectories();
             }
 
             // switchDrive command: sd {driveLetter}
@@ -324,7 +327,7 @@ public class cmd {
                 try {
                     // Convert second arg to capital char[]
                     char[] chars = command[1].toUpperCase().toCharArray();
-                    file.switchDrive(chars[0]);
+                    fileSys.switchDrive(chars[0]);
 
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
@@ -341,7 +344,7 @@ public class cmd {
                     for(int i = 2; i < command.length; i++) {
                         dirName += " " + command[i];
                     }
-                    file.createDirectory(dirName);
+                    fileSys.createDirectory(dirName);
 
                 // Index out of range error (name is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
@@ -358,7 +361,7 @@ public class cmd {
                     String fileExt = command[2];
 
                     // Create new file
-                    file.createFile(fileName, fileExt);
+                    fileSys.createFile(fileName, fileExt);
 
                 // Index out of range error (name or extension is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
@@ -375,7 +378,7 @@ public class cmd {
                     for(int i = 2; i < command.length; i++) {
                         targetPath += " " + command[i];
                     }
-                    file.deletePath(targetPath);
+                    fileSys.deletePath(targetPath);
 
                 // Index out of range error (dir/file name is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
