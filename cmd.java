@@ -69,7 +69,7 @@ public class cmd {
         // Prompts the user for a command and returns the input as a string
         // Does not close scanner
         public String getInput () {
-            System.out.print("<Enter command> ");
+            System.out.print("<command> ");
             return scanner.nextLine().trim();
         }
         // Close the scanner to prevent resource link
@@ -89,7 +89,7 @@ public class cmd {
         public void traverseToParent () {
             // No parent directory was found
             if (currentPath.split(":\\\\").length == 1) {
-                System.out.println("ERROR: No parent directory found");
+                System.out.println("<ERROR> No parent directory found");
 
             // Parent directory is found
             } else {
@@ -124,7 +124,7 @@ public class cmd {
                 }
             }
             // Unknown child error
-            System.out.println("ERROR: Child directory was not found");
+            System.out.println("<ERROR> Child directory was not found");
         }
 
 
@@ -136,7 +136,7 @@ public class cmd {
 
                 // No child directories found  
                 if(dirs.length == 0) {
-                    System.out.println("ERROR: No child directories found");
+                    System.out.println("<ERROR> No child directories found");
                 } else {
                     // Print each child
                     for(File f : dirs) {
@@ -146,7 +146,7 @@ public class cmd {
                     }
                 }
             } catch (java.lang.NullPointerException e) {
-                System.err.println("ERROR: No child directories found");
+                System.err.println("<ERROR> No child directories found");
             }
 
         }
@@ -162,7 +162,7 @@ public class cmd {
                 // Update path
                 currentPath = newPath;
             } else {
-                System.out.println("ERROR: Drive does not exist");
+                System.out.println("<ERROR> Drive does not exist");
             }
         }
 
@@ -189,7 +189,7 @@ public class cmd {
                 newDir.mkdir();
             }
             // Print success message
-            System.out.println("New directory '" + newDir + "' was created");
+            System.out.println("<new directory> " + newDir);
         }
 
 
@@ -219,7 +219,7 @@ public class cmd {
                 catch (IOException e) {System.out.println(e);}
             }
             // Print success message
-            System.out.println("New file '" + newFile + "' was created");
+            System.out.println("<new file> " + newFile);
         }
 
 
@@ -238,9 +238,9 @@ public class cmd {
 
                 // Delete the target
                 target.delete();
-                System.out.println("Path '" + target + "' was deleted");
+                System.out.println("<Path Deleted> " + target);
             } else {
-                System.out.println("ERROR: Path does not exist");
+                System.out.println("<ERROR> Path does not exist");
             }
 
         }
@@ -304,7 +304,7 @@ public class cmd {
 
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
-                    System.out.println("ERROR: Undefined child directory");
+                    System.out.println("<ERROR> Undefined child directory");
                 }
             }
 
@@ -328,7 +328,7 @@ public class cmd {
 
                 // Index out of range error
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
-                    System.out.println("ERROR: Undefined drive indicator");
+                    System.out.println("<ERROR> Undefined drive indicator");
                 }
             }
 
@@ -345,7 +345,7 @@ public class cmd {
 
                 // Index out of range error (name is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
-                    System.out.println("ERROR: Undefined directory name");
+                    System.out.println("<ERROR> Undefined directory name");
                 }
             }
 
@@ -362,7 +362,7 @@ public class cmd {
 
                 // Index out of range error (name or extension is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
-                    System.out.println("ERROR: Undefined file name or extension");
+                    System.out.println("<ERROR> Undefined file name or extension");
                 }
             }
 
@@ -379,7 +379,7 @@ public class cmd {
 
                 // Index out of range error (dir/file name is not provided)
                 } catch (java.lang.ArrayIndexOutOfBoundsException error) {
-                    System.out.println("ERROR: Undefined file name or path");
+                    System.out.println("<ERROR> Undefined file name or path");
                 }
             }
 
@@ -396,7 +396,7 @@ public class cmd {
 
             // unknown command: else
             else {
-                System.out.println("ERROR: Unknown command");
+                System.out.println("<ERROR> Unknown command");
             }
         }
     }
