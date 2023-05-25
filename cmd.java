@@ -352,10 +352,12 @@ public class cmd {
                     break;
                 }
 
+
                 // preview command: preview
                 else if (command[0].equals("preview")) {
                     preview();
                 }
+
 
                 // append command: append {text}
                 else if (command[0].equals("append")) {
@@ -373,12 +375,7 @@ public class cmd {
                     } else {System.out.println("<ERROR> Undefined input");}
                 }
 
-                // prepend command: prepend {text}
-                else if (command[0].equals("prepend")) {
-
-                }
-
-
+                
                 // Unknown command
                 else {
                     System.out.println("<ERROR> Unknown command");
@@ -412,11 +409,6 @@ public class cmd {
             } catch (IOException e) {System.out.println("<ERROR> " + e);}
         }
 
-
-        // create a new line at the top of the file
-        public void prepend () {
-
-        }
 
 
         // display the contents of the file
