@@ -345,7 +345,12 @@ public class cmd {
                 String[] command = editorInput.nextLine().split(" ");
 
                 // exit editor: close
-                if (command[0].equals("close")) break;
+                if (command[0].equals("close")) {
+                    // Reset path
+                    openedPath = "";
+                    // Exit loop
+                    break;
+                }
 
                 // preview command: preview
                 else if (command[0].equals("preview")) {
@@ -354,7 +359,18 @@ public class cmd {
 
                 // append command: append {text}
                 else if (command[0].equals("append")) {
+                    // Create new line string
+                    String newLine = "";
 
+                    // Input was provided
+                    if (command.length > 1) {
+                        // Build new line string
+                        for(int i = 1; i < command.length; i++) {newLine += command[i] + " ";}
+                        // Run command with user input
+                        append(newLine);
+                    
+                    // Input was not provided
+                    } else {System.out.println("<ERROR> Undefined input");}
                 }
 
                 // prepend command: prepend {text}
@@ -372,8 +388,28 @@ public class cmd {
 
 
         // create a new line at the bottom of the file
-        public void append () {
+        public void append (String newLine) {
+            // Success
+            try {
+                // Create a file writer
+                FileWriter writer = new FileWriter(openedPath, true);
 
+                // Create a Buffered writer
+                BufferedWriter buffer = new BufferedWriter(writer);
+
+                // Write new line to the file
+                buffer.newLine();
+                buffer.write(newLine);
+
+                // Close the writers
+                buffer.close();
+                writer.close();
+
+                // Success output 
+                System.out.println("<line appended> " + newLine);
+
+            // Error handler
+            } catch (IOException e) {System.out.println("<ERROR> " + e);}
         }
 
 
@@ -385,21 +421,16 @@ public class cmd {
 
         // display the contents of the file
         public void preview () {
+            // Success
             try {
                 // Get list of each line in the file
                 List<String> lines = Files.readAllLines(Paths.get(openedPath));
 
                 // Print each line
-                for (String line : lines) {
-                    System.out.println(line);
-                }
+                for (String line : lines) {System.out.println(line);}
 
-            // idk what this error is
-            } catch (IOException e) {
-                System.out.println("<ERROR> " + e);
-            }
-
-            
+            // Error handler
+            } catch (IOException e) {System.out.println("<ERROR> " + e);}  
         }
 
 
