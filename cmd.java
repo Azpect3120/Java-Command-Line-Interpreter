@@ -117,8 +117,6 @@ public class cmd {
             // Ensures the child directory is found             
             for (File dir : dirs) {
                 // Directory was found
-                // System.out.println(dir.toString());
-                // System.out.println(newPath);
                 String fDir = dir.toString() + "\\";
                 if (fDir.equals(newPath)) {
                     currentPath = newPath;
@@ -376,6 +374,13 @@ public class cmd {
                 }
 
                 
+                // cloneFile command: clone {newName}
+                else if (command[0].equals("clone")) {
+                    String newName = "";
+
+                    cloneFile(newName);
+                }
+                
                 // Unknown command
                 else {
                     System.out.println("<ERROR> Unknown command");
@@ -426,6 +431,19 @@ public class cmd {
         }
 
 
+        // create a clone of the file in the same directory with new name
+        public void cloneFile (String newName) {
+            // copy file
+            // create new file with the new name and same contents
+        }
+        
+        // creates a new line at the inputted value
+        public void appendAtLine () {
+            // create array of each line
+            // insert new line into array
+            // clear file
+            // rewrite file
+        }
     }
 
     // Other system commands
@@ -598,7 +616,9 @@ public class cmd {
             // unknown command: else
             else {
                 System.out.println("<ERROR> Unknown command");
+
             }
         }
     }
 }
+
