@@ -18,6 +18,7 @@
 - close: *close the file and exit out of the editor*
 - preview: *display the contents of the file*
 - append {text}: *create a new line at the bottom of the file*
+- insert {lineNum} {text}: *inserts a new line after the inputted line number*
 
 ## **Other System Commands**
 - help: *display helpful information*
