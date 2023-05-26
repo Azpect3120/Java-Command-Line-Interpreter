@@ -438,7 +438,9 @@ public class cmd {
                 List<String> lines = Files.readAllLines(Paths.get(openedPath));
 
                 // Print each line
-                for (String line : lines) {System.out.println(line);}
+                for (int i = 0; i < lines.size(); i++) {
+                    System.out.printf("%-5d %s%n", i+1, lines.get(i));
+                }
 
             // Error handler
             } catch (IOException e) {System.out.println("<ERROR> " + e);}  
