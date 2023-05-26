@@ -3,6 +3,8 @@
 // import java.lang.reflect.Constructor;
 // import javax.swing.JButton;
 import javax.swing.JFrame;
+// import javax.swing.plaf.basic.DragRecognitionSupport.BeforeDrag;
+
 import java.util.Scanner;
 import java.time.*;
 import java.io.*;
@@ -374,11 +376,23 @@ public class cmd {
                 }
 
                 
-                // cloneFile command: clone {newName}
-                else if (command[0].equals("clone")) {
-                    String newName = "";
+                // insert command: insert {lineNum} {text}
+                else if (command[0].equals("insert")) {
+                    // New line string
+                    String newLine = "";
 
-                    cloneFile(newName);
+                    // Input was provided
+                    if (command.length > 1) {
+                        // Number of the line to insert after
+                        int lineNum = Integer.parseInt(command[1]);
+
+                        // Build new line string
+                        for(int i = 2; i < command.length; i++) {newLine += command[i] + " ";}
+                        // Run command with user input
+                        insert(lineNum, newLine);
+
+                    // Input was not provided
+                    } else {System.out.println("<ERROR> Undefined input");}                    
                 }
                 
                 // Unknown command
@@ -431,19 +445,44 @@ public class cmd {
         }
 
 
-        // create a clone of the file in the same directory with new name
-        public void cloneFile (String newName) {
-            // copy file
-            // create new file with the new name and same contents
+        // inserts a new line after the inputted line number
+        public void insert (int lineNum, String newLine) {
+            // Success
+            try {
+                // Get list of each line in the file
+                List<String> lines = Files.readAllLines(Paths.get(openedPath));
+
+                // Insert target is less than the line count
+                if (lineNum < lines.size()) {
+                    // Add new item to line
+                    lines.add(lineNum, newLine);
+
+                    // Clear contents of the file
+                    FileWriter clear = new FileWriter(openedPath);
+                    clear.close();
+
+                    // Rewrite new file
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(openedPath));
+
+                    // Write lines to file
+                    for (int i = 0; i < lines.size(); i++) {
+                        writer.write(lines.get(i));
+                        if (i != lines.size() - 1) writer.newLine();
+                    }
+
+                    // Close the writer
+                    writer.close();
+
+                // Insert target is too high
+                } else {
+                    System.out.println("<ERROR> Cannot insert to a line that does not exist");
+                }
+            // Error handler
+            } catch (IOException e) {
+                System.out.println("<ERROR> " + e);
+            }  
         }
-        
-        // creates a new line at the inputted value
-        public void appendAtLine () {
-            // create array of each line
-            // insert new line into array
-            // clear file
-            // rewrite file
-        }
+
     }
 
     // Other system commands
@@ -593,6 +632,8 @@ public class cmd {
             else if (command[0].equals("open")) {
                 fileSys.openPath();
             }
+
+
 
 
             // openEditor command: editor
