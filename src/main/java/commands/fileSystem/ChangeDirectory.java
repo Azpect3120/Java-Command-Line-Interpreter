@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class ChangeDirectory {
-
     public static void cd (ArrayList<String> args) {
         if (args.isEmpty()) {
             System.out.println("Please provide proper arguments");

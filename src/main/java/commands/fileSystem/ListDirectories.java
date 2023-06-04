@@ -9,7 +9,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class ListDirectories {
-
     public static void list (ArrayList<String> args) {
         String path = Path.getPath();
         try {
