@@ -18,7 +18,7 @@ public class Insert {
             int targetLine;
             try {
                 targetLine = Integer.parseInt(args.get(0));
-            } catch (java.lang.NumberFormatException e) {
+            } catch (java.lang.NumberFormatException | java.lang.IndexOutOfBoundsException e) {
                 System.out.println("Invalid line number");
                 return;
             }

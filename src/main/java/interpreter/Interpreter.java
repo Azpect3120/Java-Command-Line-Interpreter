@@ -60,6 +60,7 @@ public class Interpreter {
             };
         } else {
             classes = new Class[] {
+                    Open.class,
                     Append.class, Insert.class, OpenEditor.class, Preview.class, Remove.class, Wipe.class
             };
         }
