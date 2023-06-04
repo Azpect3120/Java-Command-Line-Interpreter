@@ -18,7 +18,7 @@ public class Delete {
             // Recursive helper function to delete the sub paths
             deleteSubPath(targetPath);
         } else {
-            System.out.println("File or directory was not found");
+            System.out.println("File or directory does not exist");
         }
 
         // If args aren't provided, current file was deleted and needs to traverse back to the parent

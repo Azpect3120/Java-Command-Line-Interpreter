@@ -55,7 +55,7 @@ public class Interpreter {
         Class[] classes = null;
         if (!inEditor) {
             classes = new Class[] {
-                    ChangeDirectory.class, Create.class, Current.class, Delete.class, ListDirectories.class, ListDisks.class, Open.class, Rename.class, SwitchDisk.class,
+                    ChangeDirectory.class, Create.class, Current.class, Delete.class, ListDirectories.class, ListDisks.class, Open.class, Rename.class, SwitchDisk.class, Compile.class,
                     OpenEditor.class,
                     Clear.class, Help.class, History.class
             };
