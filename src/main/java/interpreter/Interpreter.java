@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 public class Interpreter {
 
     // Creates an array where there first value holds the keyword and second value holds the arguments
-    public static void interpreter (String inputString) {
+    public static void interpreter (String inputString, boolean inEditor) {
         String keyword = null;
         ArrayList<String> args = new ArrayList<>();
 
@@ -23,13 +23,13 @@ public class Interpreter {
                 args.add(inputSplit[i]);
             }
         }
-        runCommand(keyword, args);
+        runCommand(keyword, args, inEditor);
     }
 
     // Runs commands with the given arguments
     // Reflection example
-    private static void runCommand (String keyword, ArrayList<String> args) {
-        Class className = findClassName(keyword);
+    private static void runCommand (String keyword, ArrayList<String> args, boolean inEditor) {
+        Class className = findClassName(keyword, inEditor);
 
         if (className != null) {
             Method[] methods = className.getDeclaredMethods();
@@ -50,12 +50,19 @@ public class Interpreter {
     }
 
     // Finds the classname that contains a method name
-    private static Class findClassName (String keyword) {
-        Class[] classes = {
-                ChangeDirectory.class, Create.class, Current.class, Delete.class, ListDirectories.class, ListDisks.class, Open.class, Rename.class, SwitchDisk.class,
-                Append.class, Insert.class, OpenEditor.class, Preview.class, Remove.class, Wipe.class,
-                Clear.class, Help.class, History.class
-        };
+    private static Class findClassName (String keyword, boolean inEditor) {
+        Class[] classes = null;
+        if (!inEditor) {
+            classes = new Class[] {
+                    ChangeDirectory.class, Create.class, Current.class, Delete.class, ListDirectories.class, ListDisks.class, Open.class, Rename.class, SwitchDisk.class,
+                    OpenEditor.class,
+                    Clear.class, Help.class, History.class
+            };
+        } else {
+            classes = new Class[] {
+                    Append.class, Insert.class, OpenEditor.class, Preview.class, Remove.class, Wipe.class
+            };
+        }
 
         for (int i = 0; i < classes.length; i++) {
             Method[] methods = classes[i].getDeclaredMethods();
