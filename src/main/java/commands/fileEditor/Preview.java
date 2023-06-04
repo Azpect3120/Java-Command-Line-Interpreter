@@ -1,6 +1,6 @@
 package commands.fileEditor;
 
-import commands.Path;
+import commands.CurrentPath;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +11,7 @@ import java.util.List;
 public class Preview {
     public static void preview (ArrayList<String> args) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(Path.getPath()));
+            List<String> lines = Files.readAllLines(Paths.get(CurrentPath.getPath()));
 
             for (int i = 0; i < lines.size(); i++) {
                 System.out.printf("%-5d %s%n", i+1, lines.get(i));

@@ -1,6 +1,6 @@
 package commands.fileEditor;
 
-import commands.Path;
+import commands.CurrentPath;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,7 +13,7 @@ import java.util.List;
 public class Remove {
     public static void remove (ArrayList<String> args) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(Path.getPath()));
+            List<String> lines = Files.readAllLines(Paths.get(CurrentPath.getPath()));
 
             int targetLine;
             try {
@@ -28,10 +28,10 @@ public class Remove {
                 return;
             }
 
-            FileWriter clear = new FileWriter(Path.getPath());
+            FileWriter clear = new FileWriter(CurrentPath.getPath());
             clear.close();
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(Path.getPath(), true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(CurrentPath.getPath(), true));
 
             for (int i = 0; i < lines.size(); i++) {
                 if (i != targetLine) {

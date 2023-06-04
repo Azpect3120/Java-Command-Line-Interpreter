@@ -16,7 +16,7 @@ Allows you to navigate to the specified directory (".." for the parent directory
 Switches the paths disk
 
 ## cur
-Displays the current path
+Displays the current currentPath
 
 ## create <file_or_directory_name>
 Creates a new file or directory with the specified name in the current directory. Include file extension to create a file, if no extension is found a directory will be created
@@ -28,7 +28,7 @@ Removes the specified file or directory, if no name is provided, the current fil
 Changes the name of the current file or directory
 
 ## open <?file_or_directory_path>
-Opens the file or directory in the desktops default application, if no path is provided, the current file or directory will be opened
+Opens the file or directory in the desktops default application, if no currentPath is provided, the current file or directory will be opened
 
 ## history
 Displays the history of commands
@@ -42,7 +42,7 @@ Terminates the command line interpreter
 # File Editor Command List
 
 ## editor
-Open the file editor in the current path, file must be read and writeable and not a directory
+Open the file editor in the current currentPath, file must be read and writeable and not a directory
 
 ## preview
 Display the contents of the file in the editor

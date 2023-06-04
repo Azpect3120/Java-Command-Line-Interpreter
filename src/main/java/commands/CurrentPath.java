@@ -1,7 +1,7 @@
 package commands;
 
-public class Path {
-    // Path object
+public class CurrentPath {
+    // CurrentPath object
     private static String path = "C:\\";
 
     // Getter & Setter

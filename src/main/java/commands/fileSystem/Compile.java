@@ -1,6 +1,6 @@
 package commands.fileSystem;
 
-import commands.Path;
+import commands.CurrentPath;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
@@ -12,9 +12,9 @@ public class Compile {
         File targetPath;
 
         if (args.isEmpty()) {
-            targetPath = new File(Path.getPath());
+            targetPath = new File(CurrentPath.getPath());
         } else {
-            targetPath = new File(Path.getPath() + String.join(" ", args));
+            targetPath = new File(CurrentPath.getPath() + String.join(" ", args));
         }
 
         if (targetPath.exists()) {

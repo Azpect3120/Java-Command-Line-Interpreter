@@ -1,6 +1,6 @@
 package commands.fileSystem;
 
-import commands.Path;
+import commands.CurrentPath;
 
 import java.io.File;
 import java.time.Instant;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ListDirectories {
     public static void list (ArrayList<String> args) {
-        String path = Path.getPath();
+        String path = CurrentPath.getPath();
         try {
             File[] dirs = new File(path).listFiles();
 

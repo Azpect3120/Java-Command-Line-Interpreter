@@ -1,6 +1,6 @@
 package commands.fileSystem;
 
-import commands.Path;
+import commands.CurrentPath;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class SwitchDisk {
         String newPath = disk + ":\\";
 
         if (new File(newPath).exists()) {
-            Path.setPath(newPath);
+            CurrentPath.setPath(newPath);
         } else {
             System.out.println("Unknown disk");
         }

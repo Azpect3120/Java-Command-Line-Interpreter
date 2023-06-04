@@ -1,6 +1,6 @@
 package commands.fileSystem;
 
-import commands.Path;
+import commands.CurrentPath;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class ChangeDirectory {
             return;
         }
 
-        String path = Path.getPath();
+        String path = CurrentPath.getPath();
 
         // Change to parent
         if (args.get(0).equals("..")) {
@@ -29,7 +29,7 @@ public class ChangeDirectory {
                     }
                 }
 
-                Path.setPath(newPath);
+                CurrentPath.setPath(newPath);
             }
         // Change to child
         } else {
@@ -37,7 +37,7 @@ public class ChangeDirectory {
             String newPath = path + child + "\\";
 
             if (new File(newPath).exists()) {
-                Path.setPath(newPath);
+                CurrentPath.setPath(newPath);
             } else {
                 System.out.println("Child directory does not exist");
             }

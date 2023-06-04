@@ -1,5 +1,5 @@
 package commands.fileSystem;
-import commands.Path;
+import commands.CurrentPath;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class Create {
         String newName = String.join(" ", args);
         String[] processes = newName.split("[\\\\/]");
 
-        String curPath = Path.getPath();
+        String curPath = CurrentPath.getPath();
 
         // Complete processes
         for (int i = 0; i < processes.length; i++) {
