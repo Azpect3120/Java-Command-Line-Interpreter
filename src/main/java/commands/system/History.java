@@ -1,4 +1,4 @@
-package system;
+package commands.system;
 
 public class History {
 }

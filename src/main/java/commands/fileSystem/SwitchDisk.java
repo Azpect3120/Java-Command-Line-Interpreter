@@ -1,4 +1,4 @@
-package fileSystem;
+package commands.fileSystem;
 
 public class SwitchDisk {
 }

@@ -1,4 +1,4 @@
-package fileEditor;
+package commands.fileEditor;
 
 public class OpenEditor {
 }
