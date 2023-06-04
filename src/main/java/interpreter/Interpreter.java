@@ -23,6 +23,7 @@ public class Interpreter {
                 args.add(inputSplit[i]);
             }
         }
+        History.addToHistory(keyword, args);
         runCommand(keyword, args, inEditor);
     }
 
@@ -61,7 +62,8 @@ public class Interpreter {
         } else {
             classes = new Class[] {
                     Open.class,
-                    Append.class, Insert.class, OpenEditor.class, Preview.class, Remove.class, Wipe.class
+                    Append.class, Insert.class, OpenEditor.class, Preview.class, Remove.class, Wipe.class,
+                    History.class
             };
         }
 
