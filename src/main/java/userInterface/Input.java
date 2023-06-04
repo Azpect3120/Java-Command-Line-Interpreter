@@ -1,9 +1,7 @@
 package userInterface;
 import interpreter.Interpreter;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Input {
      private static Scanner scanner = new Scanner(System.in);
