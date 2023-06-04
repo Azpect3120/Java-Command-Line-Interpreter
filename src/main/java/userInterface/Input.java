@@ -11,10 +11,12 @@ public class Input {
         System.out.print("<command> ");
         String userInput = scanner.nextLine();
 
-        if (!userInput.equals("")) {
+        if (!userInput.equals("") && !userInput.toLowerCase().equals("exit")) {
             Interpreter.interpreter(userInput);
         }
 
-        runCMD();
+        if (!userInput.toLowerCase().equals("exit")) {
+            runCMD();
+        }
     }
 }
